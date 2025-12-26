@@ -1,39 +1,26 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <style>
-      body { margin: 0; overflow: hidden; }
-      #ui-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; color: white; font-family: sans-serif; text-align: center; pointer-events: none; text-shadow: 0 0 5px black; }
-    </style>
-  </head>
-  <body>
-    <div id="ui-overlay">Point camera at the business card</div>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Quick Look Card</title>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #000;">
 
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
-
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane position="-0.4 -0.6 0.1" width="0.3" height="0.15" color="#00AEEF" class="clickable" id="phone-btn">
-          <a-text value="CALL" align="center" width="2"></a-text>
-        </a-plane>
-
-        <a-plane position="0 -0.6 0.1" width="0.3" height="0.15" color="#003366" class="clickable" id="email-btn">
-          <a-text value="EMAIL" align="center" width="2"></a-text>
-        </a-plane>
-
-        <a-plane position="0.4 -0.6 0.1" width="0.3" height="0.15" color="#00AEEF" class="clickable" id="web-btn">
-          <a-text value="SITE" align="center" width="2"></a-text>
-        </a-plane>
-      </a-entity>
-    </a-scene>
+    <a id="ar-link" rel="ar" href="your-model.usdz">
+        <img src="your-card-thumbnail.jpg" alt="Scan to see AR" style="width: 80%; border-radius: 10px;">
+    </a>
 
     <script>
-      document.querySelector('#phone-btn').addEventListener('click', () => { window.location.href = "tel:+1234567890"; });
-      document.querySelector('#email-btn').addEventListener('click', () => { window.location.href = "mailto:hello@reallygreatsite.com"; });
-      document.querySelector('#web-btn').addEventListener('click', () => { window.location.href = "https://www.reallygreatsite.com"; });
+        const linkElement = document.getElementById("ar-link");
+        // This sets a banner title and a button inside the native AR view
+        linkElement.href += "#checkoutTitle=Arnav%20Ganguly&checkoutSubtitle=Software%20Engineer&callToAction=Email%20Me";
+
+        linkElement.addEventListener("message", function(event) {
+            if (event.data == "_apple_ar_quicklook_button_tapped") {
+                window.location.href = "mailto:your-email@ncsu.edu";
+            }
+        });
     </script>
-  </body>
+</body>
 </html>
