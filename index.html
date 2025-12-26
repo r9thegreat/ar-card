@@ -11,16 +11,12 @@
         <img src="your-card-thumbnail.jpg" alt="Scan to see AR" style="width: 80%; border-radius: 10px;">
     </a>
 
-    <script>
-        const linkElement = document.getElementById("ar-link");
-        // This sets a banner title and a button inside the native AR view
-        linkElement.href += "#checkoutTitle=Arnav%20Ganguly&checkoutSubtitle=Software%20Engineer&callToAction=Email%20Me";
-
-        linkElement.addEventListener("message", function(event) {
-            if (event.data == "_apple_ar_quicklook_button_tapped") {
-                window.location.href = "mailto:your-email@ncsu.edu";
-            }
-        });
-    </script>
+<script>
+  window.onload = () => {
+    const arLink = document.getElementById('ar-link');
+    // Simulate a click immediately to try and jump past the landing page
+    arLink.click();
+  };
+</script>
 </body>
 </html>
